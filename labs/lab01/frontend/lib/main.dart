@@ -68,7 +68,8 @@ class MyHomePage extends StatelessWidget {
               name: 'John Doe',
               email: 'john@example.com',
               age: 30,
-              avatarUrl: 'https://example.com/avatar.jpg',
+              avatarUrl:
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHOFPH9idp0f95w1fD2hy_EO3QlU2p9poJpQ&s',
             ),
             const SizedBox(height: 24),
             const Text(

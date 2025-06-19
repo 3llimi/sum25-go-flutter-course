@@ -2,6 +2,8 @@ package user
 
 import (
 	"errors"
+	"fmt"
+	"strings"
 )
 
 var (
@@ -22,24 +24,66 @@ type User struct {
 
 // NewUser creates a new user with validation
 func NewUser(name string, age int, email string) (*User, error) {
-	// TODO: Implement user creation with validation
-	return nil, nil
+	user := &User{
+		Name:  name,
+		Age:   age,
+		Email: email,
+	}
+
+	if err := user.Validate(); err != nil {
+		return nil, err
+	}
+
+	return user, nil
 }
 
 // Validate checks if the user data is valid
 func (u *User) Validate() error {
-	// TODO: Implement user validation
+	var validationErrors []error
+
+	if strings.TrimSpace(u.Name) == "" {
+		validationErrors = append(validationErrors, ErrEmptyName)
+	}
+
+	if u.Age <= 0 || u.Age > 150 {
+		validationErrors = append(validationErrors, ErrInvalidAge)
+	}
+
+	if !IsValidEmail(u.Email) {
+		validationErrors = append(validationErrors, ErrInvalidEmail)
+	}
+
+	if len(validationErrors) > 0 {
+		var combinedErr error
+		for _, err := range validationErrors {
+			if combinedErr == nil {
+				combinedErr = err
+			} else {
+				combinedErr = fmt.Errorf("%w; %w", combinedErr, err)
+			}
+		}
+		return combinedErr
+	}
+
 	return nil
 }
 
 // String returns a string representation of the user
 func (u *User) String() string {
-	// TODO: Implement string representation
-	return ""
+	return fmt.Sprintf("User{Name: %q, Age: %d, Email: %q}", u.Name, u.Age, u.Email)
 }
 
 // IsValidEmail checks if the email format is valid
 func IsValidEmail(email string) bool {
-	// TODO: Implement email validation
-	return false
+	parts := strings.Split(email, "@")
+	if len(parts) != 2 {
+		return false
+	}
+	if parts[0] == "" || parts[1] == "" {
+		return false
+	}
+	if !strings.Contains(parts[1], ".") {
+		return false
+	}
+	return true
 }

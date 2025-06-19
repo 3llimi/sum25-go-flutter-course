@@ -16,7 +16,53 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Implement profile card UI
-    return Container();
+    return Card(
+      key: const Key('profileCard'),
+      elevation: 4,
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 30,
+              backgroundImage:
+                  avatarUrl != null ? NetworkImage(avatarUrl!) : null,
+              backgroundColor: Colors.blue[100],
+              child: avatarUrl == null
+                  ? Text(
+                      name.isNotEmpty ? name[0] : '',
+                      key: const Key('avatarInitial'),
+                      style: const TextStyle(fontSize: 20, color: Colors.black),
+                    )
+                  : null,
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    key: const Key('profileName'),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    email,
+                    key: const Key('profileEmail'),
+                  ),
+                  Text(
+                    'Age: $age',
+                    key: const Key('profileAge'),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
