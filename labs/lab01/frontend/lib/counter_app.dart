@@ -35,6 +35,10 @@ class _CounterAppState extends State<CounterApp> {
         key: const Key('counterApp'),
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const Text(
+            'Counter',
+            style: TextStyle(fontSize: 24),
+          ),
           Text(
             '$_counter',
             key: const Key('counterText'),

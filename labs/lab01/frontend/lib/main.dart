@@ -52,7 +52,7 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: const Text('Lab 01 Demo'),
+        title: const Text('Lab 01 Demo: First Flutter Application'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -65,15 +65,15 @@ class MyHomePage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             const ProfileCard(
-              name: 'John Doe',
-              email: 'john@example.com',
+              name: 'ILIMAMO ALI BILASSAD BASHAR',
+              email: 'BASHAR@example.com',
               age: 30,
               avatarUrl:
                   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHOFPH9idp0f95w1fD2hy_EO3QlU2p9poJpQ&s',
             ),
             const SizedBox(height: 24),
             const Text(
-              'Counter App Example',
+              'Counter App',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
