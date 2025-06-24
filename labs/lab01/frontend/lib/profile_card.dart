@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 
 class ProfileCard extends StatelessWidget {
@@ -15,11 +14,8 @@ class ProfileCard extends StatelessWidget {
     this.avatarUrl,
   }) : super(key: key);
 
-  bool get isRunningInTest => Platform.environment.containsKey('FLUTTER_TEST');
-
   @override
   Widget build(BuildContext context) {
-    final showImage = avatarUrl != null && !isRunningInTest;
     return Card(
       key: const Key('profileCard'),
       elevation: 4,
@@ -31,15 +27,24 @@ class ProfileCard extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 30,
-              backgroundImage: showImage ? NetworkImage(avatarUrl!) : null,
               backgroundColor: Colors.blue[100],
-              child: avatarUrl == null
-                  ? Text(
+              child: avatarUrl != null
+                  ? ClipOval(
+                      child: Image.network(
+                        avatarUrl!,
+                        width: 60,
+                        height: 60,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.person, size: 40);
+                        },
+                      ),
+                    )
+                  : Text(
                       name.isNotEmpty ? name[0] : '',
                       key: const Key('avatarInitial'),
                       style: const TextStyle(fontSize: 20, color: Colors.black),
-                    )
-                  : null,
+                    ),
             ),
             const SizedBox(width: 16),
             Expanded(
