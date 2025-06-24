@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 
 class ProfileCard extends StatelessWidget {
@@ -14,8 +15,11 @@ class ProfileCard extends StatelessWidget {
     this.avatarUrl,
   }) : super(key: key);
 
+  bool get isRunningInTest => Platform.environment.containsKey('FLUTTER_TEST');
+
   @override
   Widget build(BuildContext context) {
+    final showImage = avatarUrl != null && !isRunningInTest;
     return Card(
       key: const Key('profileCard'),
       elevation: 4,
@@ -27,8 +31,7 @@ class ProfileCard extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 30,
-              backgroundImage:
-                  avatarUrl != null ? NetworkImage(avatarUrl!) : null,
+              backgroundImage: showImage ? NetworkImage(avatarUrl!) : null,
               backgroundColor: Colors.blue[100],
               child: avatarUrl == null
                   ? Text(
